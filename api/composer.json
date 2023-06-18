@@ -7,6 +7,7 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "nelmio/cors-bundle": "^2.3",
         "nyholm/psr7": "^1.8",
         "openai-php/symfony": "^0.4.1",
         "phpdocumentor/reflection-docblock": "^5.3",
