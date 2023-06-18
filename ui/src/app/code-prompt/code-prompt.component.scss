@@ -1,0 +1,33 @@
+.code-prompt {
+    display: flex;
+    padding: 1rem;
+    height: calc(100vh - 250px);
+}
+
+.editor-col {
+    flex: 2;
+    background: #ffffff;
+}
+
+.control-col {
+    flex: 1;
+    padding-left: 1rem;
+
+    form {
+        display: flex;
+        flex-grow: 1;
+
+        .form-row {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        mat-form-field {
+            flex-grow: 1;
+        }
+    }
+
+    button {
+        margin-left: 1rem;
+    }
+}
