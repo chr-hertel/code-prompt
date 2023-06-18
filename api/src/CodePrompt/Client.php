@@ -15,11 +15,11 @@ final readonly class Client
     ) {
     }
 
-    public function execute(CodePrompt $codePrompt): string
+    public function execute(CodePrompt $codePrompt): Response
     {
         $message = 'Respond only with the code.';
         $content = sprintf('Given this %s code: ```%s``` %s. %s', $codePrompt->language, $codePrompt->code, $codePrompt->prompt, $message);
-        dump($content);
+
         $result = $this->client->chat()->create([
             'model' => 'gpt-3.5-turbo',
             'messages' => [
@@ -27,8 +27,14 @@ final readonly class Client
             ],
         ]);
 
-        dump($result);
+        $code = u($result->choices[0]->message->content);
+        $languageMatch = $code->match('/^```([a-z]+)/');
+        $language = isset($languageMatch[1]) ? $languageMatch[1] : $codePrompt->language;
+        $after = isset($languageMatch[0]) ? $languageMatch[0] : '```';
 
-        return $result->choices[0]->message->content;
+        return new Response(
+            $language,
+            $code->after($after)->beforeLast('```')->toString(),
+        );
     }
 }
